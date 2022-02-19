@@ -72,7 +72,7 @@ def goaway_popup(driver_instance):
 
 
 def init_driver():
-    s = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+    s = Service(ChromeDriverManager().install())
     option = webdriver.ChromeOptions()
     option.add_argument("--incognito")
     # option.add_argument("-headless")

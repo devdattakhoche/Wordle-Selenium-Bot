@@ -171,7 +171,7 @@ if __name__ == "__main__":
     total_attempts = 0
     success = 0
     failure = 0
-    count = 100
+    count = 10000
     for idx, word in enumerate(df):
         if idx == count:
             break
