@@ -14,11 +14,7 @@ from webdriver_manager.utils import ChromeType
 CONSTANTS = {
     "wordle_url": "https://www.nytimes.com/games/wordle/index.html",
     "words_csv": "https://raw.githubusercontent.com/tabatkins/wordle-list/main/words",
-    # "word_list": ["slate", "crwth"]
     "word_list": ["adieu", "golps", "crwth"]
-    # "word_list":["arise","gumbo","chynd"]
-    # "word_list" : ["crane","whims","fudgy","plotz"]
-    # "word_list": [ "slate"],
 }
 
 
