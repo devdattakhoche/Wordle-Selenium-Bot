@@ -1,5 +1,7 @@
 import io
 from collections import Counter
+import argparse
+import random
 
 import pandas as pd
 import requests
@@ -20,6 +22,8 @@ ans_list = [".", ".", ".", ".", "."]
 
 def wordle_game(word, guess):
 
+
+    
     resp = ["a", "a", "a", "a", "a"]
     visited = [0, 0, 0, 0, 0]
     word_freq = Counter(word)
@@ -71,6 +75,13 @@ def play_wordle(original_word, Words):
 
 
 def get_word_for_guess(Words):
+
+    # Randomly select a word from the list of words
+    # import random
+    # word =  Words.iloc[random.randint(0, len(Words) - 1)]
+    # return word
+
+    # Frequency based selection
 
     positions = {
         1: {},
@@ -167,14 +178,26 @@ def update_words(Words, resp, _, letter):
 
 if __name__ == "__main__":
 
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--Nwords', help='Number of words to test on', type=int, default=1000)
+    args = parser.parse_args()
+    count = vars(args)['Nwords']
+
+    if(count > 10000):
+        print("Number of words should be less than equal to 10000")
+        exit()
+
     df = get_words_df()
+
+    start = random.randint(0, len(df) - count)
+    end = start + count
+    rand_range = range(start, end)
+    Words = df.iloc[rand_range]
     total_attempts = 0
     success = 0
     failure = 0
-    count = 10000
-    for idx, word in enumerate(df):
-        if idx == count:
-            break
+    for idx, word in enumerate(Words):
         resp = play_wordle(word, df)
         if resp["result"] == "success":
             total_attempts += resp["attempts"]
