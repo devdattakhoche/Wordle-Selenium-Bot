@@ -16,7 +16,7 @@
   <h2 align="center">Wordle Bot</h2>
 
   <p align="center">
-    A simple to solve today's wordle
+    A simple python bot to solve today's wordle
     <br />
     ·
     <a href="https://github.com/Srajan1122/TK-Player/issues">Report Bug</a>
