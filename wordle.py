@@ -22,7 +22,7 @@ incorrect_letters = set()
 correct_letters = set()
 counts = {}
 previous_correct_letter = set()
-ans_list = [".", ".", ".", ".", "."]
+ans_list = ["." for i in range(5)]
 
 
 #####################Driver Functions#############################
@@ -135,15 +135,18 @@ def play_wordle():
     goaway_popup(driver)
 
     for attempt in range(1, 7):
-
+        print(Words)
         Words = send_word_and_update_list(
             driver_instance=driver, word=word_to_send, Words=Words
         )
+        
         ans = get_current_ans()
         if len(ans) == 5:
             time.sleep(10)
             return {"result": "success", "word": ans, "attempts": attempt}
+        
         idx += 1
+
         if idx <= len(CONSTANTS["word_list"]) - 1:
             word_to_send = CONSTANTS["word_list"][idx]
         else:
@@ -153,11 +156,8 @@ def play_wordle():
 
     return {"result": "failure", "attempts": attempt}
 
-
 def get_current_ans():
-    ans = "".join(ans_list)
-    ans = ans.replace(".", "")
-    return ans
+    return "".join(ans_list).replace(".", "")
 
 
 def send_word_and_update_list(driver_instance, word, Words):
@@ -189,13 +189,13 @@ def update_words(driver_instance, Words, grid, _):
         if data_state == "correct":
             ans_list[_] = letter
         else:
-            temp = [".", ".", ".", ".", "."]
+            temp = ["." for i in range(5)]
             temp[_] = letter
             Words = Words[Words.str.match(r"^{}$".format("".join(temp))) == False]
     elif data_state == "absent" and (
         letter in ans_list or letter in previous_correct_letter
     ):
-        temp = [".", ".", ".", ".", "."]
+        temp = ["." for i in range(5)]
         temp[_] = letter
         Words = Words[Words.str.match(r"^{}$".format("".join(temp))) == False]
     elif data_state == "absent" and letter not in previous_correct_letter:
